@@ -21,6 +21,7 @@ namespace cat {
         } else {
             std::cout << s << '\n';
         }
+        m_line_num++;
     }
 
     void Cat::do_cat(std::string path) {
@@ -36,7 +37,6 @@ namespace cat {
         std::string buf;
         while (std::getline(ifs, buf)) {
             println(buf);
-            m_line_num++;
         }
 
         if (!ifs.eof()) {
