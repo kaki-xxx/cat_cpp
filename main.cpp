@@ -31,7 +31,8 @@ int main(int argc, char *argv[]) {
 
     auto cat = cat::Cat(result);
     try {
-        if (argc == 1) {
+        auto paths = result.unmatched();
+        if (paths.size() == 0) {
             cat.do_cat("-");
             return EXIT_SUCCESS;
         }
