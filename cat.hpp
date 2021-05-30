@@ -3,10 +3,12 @@
 
 #include <string>
 
-class Cat {
-public:
-    Cat();
-    void do_cat(std::string path);
-};
+namespace cat {
+    class Cat {
+    public:
+        Cat();
+        void do_cat(std::string path);
+    };
+}
 
 #endif /* CAT_H */
