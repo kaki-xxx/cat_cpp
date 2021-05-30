@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <fstream>
 #include <cerrno>
 #include <iostream>
@@ -35,5 +36,9 @@ namespace cat {
         if (!std::cin.eof()) {
             throw std::system_error(errno, std::generic_category(), "stdin");
         }
+
+        // iostreamとstdio両方のEOFフラグをリセット
+        std::cin.clear();
+        std::clearerr(stdin);
     }
 }
