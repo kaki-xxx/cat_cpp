@@ -25,4 +25,15 @@ namespace cat {
             throw std::system_error(errno, std::generic_category(), path);
         }
     }
+
+    void Cat::do_cat_stdin() {
+        std::string buf;
+        while (std::getline(std::cin, buf)) {
+            std::cout << buf << '\n';
+        }
+
+        if (!std::cin.eof()) {
+            throw std::system_error(errno, std::generic_category(), "stdin");
+        }
+    }
 }

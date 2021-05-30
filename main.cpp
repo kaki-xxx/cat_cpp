@@ -2,12 +2,23 @@
 #include <exception>
 #include <iostream>
 #include <system_error>
+#include <vector>
 #include "cat.hpp"
 
 int main(int argc, char *argv[]) {
     auto cat = cat::Cat();
     try {
-        cat.do_cat(argv[1]);
+        if (argc == 1) {
+            cat.do_cat_stdin();
+            return EXIT_SUCCESS;
+        }
+        for (int i = 1; i < argc; i++) {
+            if (std::string(argv[i]) == "-") {
+                cat.do_cat_stdin();
+            } else {
+                cat.do_cat(argv[i]);
+            }
+        }
     } catch (std::system_error e) {
         std::cerr << e.what() << std::endl;
         std::exit(EXIT_FAILURE);
