@@ -6,10 +6,22 @@
 #include <cstring>
 #include <string>
 #include <system_error>
+#include <iomanip>
 #include "cat.hpp"
+#include "cxxopts.hpp"
 
 namespace cat {
-    Cat::Cat() {}
+    Cat::Cat(cxxopts::ParseResult result) : m_result(result) {
+        m_line_num = 1;
+    }
+
+    void Cat::println(std::string s) {
+        if (m_result["number"].as<bool>()) {
+            std::cout << std::setw(6) << m_line_num << "  " << s << '\n';
+        } else {
+            std::cout << s << '\n';
+        }
+    }
 
     void Cat::do_cat(std::string path) {
         if (std::string(path) == "-") {
@@ -23,7 +35,8 @@ namespace cat {
 
         std::string buf;
         while (std::getline(ifs, buf)) {
-            std::cout << buf << '\n';
+            println(buf);
+            m_line_num++;
         }
 
         if (!ifs.eof()) {
@@ -34,7 +47,7 @@ namespace cat {
     void Cat::do_cat_stdin() {
         std::string buf;
         while (std::getline(std::cin, buf)) {
-            std::cout << buf << '\n';
+            println(buf);
         }
 
         if (!std::cin.eof()) {

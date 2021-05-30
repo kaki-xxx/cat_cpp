@@ -29,16 +29,14 @@ int main(int argc, char *argv[]) {
         std::exit(EXIT_SUCCESS);
     }
 
-    std::cout << result.unmatched()[0] << std::endl;
-
-    auto cat = cat::Cat();
+    auto cat = cat::Cat(result);
     try {
         if (argc == 1) {
             cat.do_cat("-");
             return EXIT_SUCCESS;
         }
-        for (int i = 1; i < argc; i++) {
-            cat.do_cat(argv[i]);
+        for (auto path : result.unmatched()) {
+            cat.do_cat(path);
         }
     } catch (std::system_error e) {
         std::cerr << e.what() << std::endl;
