@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
         cat.do_cat(argv[1]);
     } catch (std::system_error e) {
         std::cerr << e.what() << std::endl;
-        std::exit(1);
+        std::exit(EXIT_FAILURE);
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
