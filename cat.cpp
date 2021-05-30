@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <string>
+#include <system_error>
 #include "cat.hpp"
 
 namespace cat {
@@ -12,8 +13,7 @@ namespace cat {
     void Cat::do_cat(std::string path) {
         std::ifstream ifs(path);
         if (!ifs) {
-            std::cerr << path << ": " << std::strerror(errno) << std::endl;
-            std::exit(1);
+            throw std::system_error(errno, std::generic_category(), path);
         }
 
         std::string buf;
@@ -22,8 +22,7 @@ namespace cat {
         }
 
         if (!ifs.eof()) {
-            std::cerr << path << ": " << std::strerror(errno) << std::endl;
-            std::exit(1);
+            throw std::system_error(errno, std::generic_category(), path);
         }
     }
 }
