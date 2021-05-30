@@ -12,6 +12,10 @@ namespace cat {
     Cat::Cat() {}
 
     void Cat::do_cat(std::string path) {
+        if (std::string(path) == "-") {
+            do_cat_stdin();
+            return;
+        }
         std::ifstream ifs(path);
         if (!ifs) {
             throw std::system_error(errno, std::generic_category(), path);
